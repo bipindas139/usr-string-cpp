@@ -39,7 +39,7 @@ g++ main.cpp usr_string.cpp -o usr_string
 ./usr_string
 ```
 
-## Notes
+## Note
 
 This was built as a learning exercise to get hands-on practice with pointers,
 heap allocation, object lifetime, and operator overloading — not as a
