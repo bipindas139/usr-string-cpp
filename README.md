@@ -37,6 +37,7 @@ A custom string class implemented in C++ to understand how dynamic memory, point
 ```bash
 g++ main.cpp usr_string.cpp -o usr_string
 ./usr_string
+```
 
 ## Notes
 
