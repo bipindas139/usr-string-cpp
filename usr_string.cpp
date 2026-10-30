@@ -1,9 +1,11 @@
 #include"usr_string.h"
 
+
 usr_string::usr_string(){
 
 	p = new char [1];
 	*p = '\0';
+	
 }
 
 usr_string::usr_string(const char *s){
@@ -25,12 +27,8 @@ usr_string::~usr_string(){
 
 void usr_string::set(){
 
-	cout << " Enter : " << endl;
-	char temp[1000];
-	cin.getline(temp,1000);
-	delete [] p;
-	p = new char [strlen(temp)+1];
-	strcpy(p,temp);
+	cout << " Enter : ";
+              scan_input(&p);
 }
 
 void usr_string::get(){
@@ -55,12 +53,12 @@ usr_string usr_string::operator +(const usr_string& s)
 	return temp;
 }
 
-char usr_string::operator [](int i)
+char& usr_string::operator [](int i)
 {
 	return p[i];
 }
 
-int usr_string::operator < (const usr_string& s){
+bool usr_string::operator < (const usr_string& s){
 
 	if(strcmp(p,s.p)<0)
 		return 1;
@@ -68,7 +66,7 @@ int usr_string::operator < (const usr_string& s){
 		return 0;
 }
 
-int usr_string::operator > (const usr_string& s){
+bool usr_string::operator > (const usr_string& s){
 
 	if(strcmp(p,s.p)>0)
 		return 1;
@@ -76,7 +74,7 @@ int usr_string::operator > (const usr_string& s){
 		return 0;
 }
 
-int usr_string::operator >= (const usr_string& s){
+bool usr_string::operator >= (const usr_string& s){
 
 	if(strcmp(p,s.p)>=0)
 		return 1;
@@ -84,7 +82,7 @@ int usr_string::operator >= (const usr_string& s){
 		return 0;
 }
 
-int usr_string::operator <= (const usr_string& s){
+bool usr_string::operator <= (const usr_string& s){
 
 	if(strcmp(p,s.p)<=0)
 		return 1;
@@ -92,7 +90,7 @@ int usr_string::operator <= (const usr_string& s){
 		return 0;
 }
 
-int usr_string::operator != (const usr_string& s){
+bool usr_string::operator != (const usr_string& s){
 
 	if(strcmp(p,s.p))
 		return 1;
@@ -100,7 +98,7 @@ int usr_string::operator != (const usr_string& s){
 		return 0;
 }
 
-int usr_string::operator == (const usr_string& s){
+bool usr_string::operator == (const usr_string& s){
 
 	if(strcmp(p,s.p))
 		return 0;
@@ -111,11 +109,7 @@ int usr_string::operator == (const usr_string& s){
 
 istream& operator >>(istream& in, usr_string& s)
 {
-	char temp[1000];
-	in >> temp;
-	delete [] s.p;
-	s.p = new char [strlen(temp)+1];
-	strcpy(s.p,temp);
+	scan_input(&s.p);
 	return in;
 }
 
@@ -262,4 +256,32 @@ unsigned long int usr_strlen(const usr_string& s)
 	return strlen(s.p);
 }
 
-
+void scan_input(char **p)
+{
+ char ch;
+ unsigned count=0;
+ FILE *fp = fopen("Data.txt","w+");
+ 
+ if(fp == NULL)
+ {
+   printf("ERROR : scanning input from user, ***fopen fail***\n");
+   return;
+  }
+  
+ while(1)
+ {
+   ch = getchar();
+   if(ch =='\n')
+   break;
+   
+   fputc(ch,fp);
+   count++;
+ }
+ fputc('\n',fp);
+ delete [] (*p);
+ *p = new char [count + 1];
+  rewind(fp);
+ fscanf(fp,"%[^\n]",*p);
+ fclose(fp);
+ return;
+}

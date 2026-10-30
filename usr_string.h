@@ -23,14 +23,14 @@ class usr_string
 
 	usr_string operator =(const usr_string&);
 	usr_string operator +(const usr_string&);
-	char operator [](int i);
+	char& operator [](int i);
 
-	int operator < (const usr_string&);
-	int operator > (const usr_string&);
-	int operator >= (const usr_string&);
-	int operator <= (const usr_string&);
-	int operator != (const usr_string& s);
-	int operator == (const usr_string& s);
+	bool operator < (const usr_string&);
+	bool operator > (const usr_string&);
+	bool operator >= (const usr_string&);
+	bool operator <= (const usr_string&);
+	bool operator != (const usr_string& s);
+	bool operator == (const usr_string& s);
 
 	friend istream& operator >>(istream&,  usr_string&);
 	friend ostream& operator <<(ostream&, const usr_string&);
@@ -54,7 +54,9 @@ class usr_string
 	friend char* usr_strstr(const usr_string&,const char *);
 
 	friend unsigned long int usr_strlen(const usr_string&);
-
+	      
 };
+
+void scan_input(char **);
 
 #endif
